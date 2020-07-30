@@ -3,6 +3,7 @@ package org.kyhslam.rest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kyhslam.rest.common.TestDescription;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -32,6 +33,7 @@ public class EventControllerTests {
     ObjectMapper objectMapper;
 
     @Test
+    @TestDescription("정상적으로 이벤트를 생성하는 테스트")
     public void createEvent() throws Exception {
 
         Event event = Event.builder()
@@ -62,6 +64,7 @@ public class EventControllerTests {
 
 
     @Test
+    @TestDescription("입력값이 비어있는 경우 에러가 발생하는 테스트")
     public void createEvent_Bad_Request_Empty_input() throws Exception {
 
         EventDto eventDto = EventDto.builder().build();
@@ -75,6 +78,7 @@ public class EventControllerTests {
 
     //들어온 값이 이상할 경우
     @Test
+    @TestDescription("입력값이잘못된 경우에 에러가 발생하는 테스트")
     public void createEvent_Bad_Request_Wrong_input() throws Exception {
 
         EventDto eventDto = EventDto.builder()
