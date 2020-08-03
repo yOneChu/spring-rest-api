@@ -59,9 +59,13 @@ public class EventControllerTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("id").exists())
                 .andExpect(MockMvcResultMatchers.header().exists(HttpHeaders.LOCATION))
                 .andExpect(MockMvcResultMatchers.header().string(HttpHeaders.CONTENT_TYPE,MediaTypes.HAL_JSON_UTF8_VALUE))
-                .andExpect(MockMvcResultMatchers.jsonPath("free").value(Matchers.not(false)))
-                .andExpect(MockMvcResultMatchers.jsonPath("offline").value(Matchers.not(true)))
-                .andExpect(MockMvcResultMatchers.jsonPath("eventStatus").value(EventStatus.DRAFT.name()));
+                .andExpect(MockMvcResultMatchers.jsonPath("free").value(false))
+                .andExpect(MockMvcResultMatchers.jsonPath("offline").value(true))
+                .andExpect(MockMvcResultMatchers.jsonPath("eventStatus").value(EventStatus.DRAFT.name()))
+                .andExpect(MockMvcResultMatchers.jsonPath("_links.self").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("_links.query-events").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("_links.update-event").exists())
+                ;
 
     }
 

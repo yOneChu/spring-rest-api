@@ -47,11 +47,18 @@ public class EventController {
 
         Event event = modelMapper.map(eventDto, Event.class); // Dto를 event로 변환
 
-        event.update();
+        event.update(); // 비즈니스 로직 적용
 
         Event newEvent = eventRepository.save(event);
+
+        ControllerLinkBuilder selfLinkBuilder = ControllerLinkBuilder.linkTo(EventController.class).slash(newEvent.getId());
         URI createdUri = ControllerLinkBuilder.linkTo(EventController.class).slash(newEvent.getId()).toUri();
-        return ResponseEntity.created(createdUri).body(event);
+
+        EventResource eventResource = new EventResource(event);
+        eventResource.add(ControllerLinkBuilder.linkTo(EventController.class).withRel("query-events"));
+        //eventResource.add(selfLinkBuilder.withSelfRel());
+        eventResource.add(selfLinkBuilder.withRel("update-event"));
+        return ResponseEntity.created(createdUri).body(eventResource);
     }
 
 }
