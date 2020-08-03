@@ -1,6 +1,7 @@
 package org.kyhslam.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kyhslam.rest.common.TestDescription;
@@ -57,7 +58,10 @@ public class EventControllerTests {
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("id").exists())
                 .andExpect(MockMvcResultMatchers.header().exists(HttpHeaders.LOCATION))
-                .andExpect(MockMvcResultMatchers.header().string(HttpHeaders.CONTENT_TYPE,MediaTypes.HAL_JSON_UTF8_VALUE));
+                .andExpect(MockMvcResultMatchers.header().string(HttpHeaders.CONTENT_TYPE,MediaTypes.HAL_JSON_UTF8_VALUE))
+                .andExpect(MockMvcResultMatchers.jsonPath("free").value(Matchers.not(false)))
+                .andExpect(MockMvcResultMatchers.jsonPath("offline").value(Matchers.not(true)))
+                .andExpect(MockMvcResultMatchers.jsonPath("eventStatus").value(EventStatus.DRAFT.name()));
 
     }
 
