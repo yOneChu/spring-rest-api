@@ -1,0 +1,21 @@
+[source,bash]
+----
+$ echo '{
+  "id" : null,
+  "name" : "Spring",
+  "description" : "REST API Development",
+  "beginEnrollmentDateTime" : "2018-11-23T14:21:00",
+  "closeEnrollmentDateTime" : "2018-11-23T14:21:00",
+  "beginEventDateTime" : "2018-11-25T14:21:00",
+  "endEventDateTime" : "2018-11-26T14:21:00",
+  "location" : "강남역 d2 팩토리",
+  "basePrice" : 100,
+  "maxPrice" : 200,
+  "limitOfEnrollment" : 100,
+  "offline" : false,
+  "free" : false,
+  "eventStatus" : null
+}' | http POST 'http://localhost:8080/api/events/' \
+    'Content-Type:application/json;charset=UTF-8' \
+    'Accept:application/hal+json'
+----
