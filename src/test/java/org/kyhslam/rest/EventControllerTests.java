@@ -17,6 +17,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.headers.HeaderDocumentation;
+import org.springframework.restdocs.hypermedia.HypermediaDocumentation;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -25,6 +27,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDateTime;
+import java.util.stream.IntStream;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -38,6 +41,9 @@ public class EventControllerTests {
 
     @Autowired
     ObjectMapper objectMapper;
+
+    @Autowired
+    EventRepository eventRepository;
 
     @Test
     @TestDescription("정상적으로 이벤트를 생성하는 테스트")
@@ -71,7 +77,17 @@ public class EventControllerTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("_links.self").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("_links.query-events").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("_links.update-event").exists())
-                .andDo(MockMvcRestDocumentation.document("create-event"))
+                .andDo(MockMvcRestDocumentation.document("create-event",
+                        HypermediaDocumentation.links(
+                                HypermediaDocumentation.linkWithRel("self").description("link to self"),
+                                HypermediaDocumentation.linkWithRel("query-events").description("link to query"),
+                                HypermediaDocumentation.linkWithRel("update-event").description("link to update")
+                        ),
+                        HeaderDocumentation.requestHeaders(
+                                HeaderDocumentation.headerWithName(HttpHeaders.ACCEPT).description("accept header"),
+                                HeaderDocumentation.headerWithName(HttpHeaders.CONTENT_TYPE).description("content type")
+                        )
+                ))
                 ;
 
     }
@@ -121,4 +137,33 @@ public class EventControllerTests {
 
     }
 
+
+    @Test
+    @TestDescription("30개의 이벤트를 10개씩 두번째 페이지 조회하기")
+    public void queryEvent() throws Exception {
+
+        // Given
+        IntStream.range(0,30).forEach(i -> {
+            this.generateEvent(i);
+        });
+
+        // When
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/events")
+                        .param("page", "1")
+                        .param("size", "10")
+                        .param("sort", "name,DESC")
+                    )
+                    .andDo(MockMvcResultHandlers.print())
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.jsonPath("page").exists());
+    }
+
+    public void generateEvent(int index){
+        Event event = Event.builder()
+                .name("event" + index)
+                .description("test event")
+                .build();
+
+        this.eventRepository.save(event);
+    }
 }

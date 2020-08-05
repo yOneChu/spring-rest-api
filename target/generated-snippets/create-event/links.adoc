@@ -1,0 +1,13 @@
+|===
+|Relation|Description
+
+|`+self+`
+|link to self
+
+|`+query-events+`
+|link to query
+
+|`+update-event+`
+|link to update
+
+|===
