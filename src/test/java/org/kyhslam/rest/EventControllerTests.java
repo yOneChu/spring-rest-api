@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.kyhslam.rest.common.RestDocsConfiguration;
 import org.kyhslam.rest.common.TestDescription;
 import org.mockito.Mockito;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -44,6 +45,9 @@ public class EventControllerTests {
 
     @Autowired
     EventRepository eventRepository;
+
+    @Autowired
+    ModelMapper modelMapper;
 
     @Test
     @TestDescription("정상적으로 이벤트를 생성하는 테스트")
@@ -158,12 +162,57 @@ public class EventControllerTests {
                     .andExpect(MockMvcResultMatchers.jsonPath("page").exists());
     }
 
-    public void generateEvent(int index){
+
+
+
+    @Test
+    @TestDescription("기존의 이벤트를 하나 조회하기")
+    public void getEvent() throws Exception {
+        // Given
+        Event event = this.generateEvent(100);
+
+        // When
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/events/{id}",event.getId()))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("name").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("id").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("_links.self").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("_links.profile").exists())
+                .andDo(MockMvcRestDocumentation.document("get-an-event"))
+                ;
+
+    }
+
+    @Test
+    @TestDescription("없는 이벤트는 조회했을 때 404 응답받기")
+    public void getEvent404() throws Exception {
+        // When & Then
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/events/11833"))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+
+    @Test
+    @TestDescription("이벤트를 정상적으로 수정하기")
+    public void updateEvent() throws Exception {
+
+        // Given
+        Event event = this.generateEvent(200);
+        EventDto eventDto = this.modelMapper.map(event, EventDto.class);
+
+        eventDto.setName("update event");
+
+
+
+    }
+
+    public Event generateEvent(int index){
         Event event = Event.builder()
                 .name("event" + index)
                 .description("test event")
                 .build();
 
-        this.eventRepository.save(event);
+        return this.eventRepository.save(event);
     }
+
 }
