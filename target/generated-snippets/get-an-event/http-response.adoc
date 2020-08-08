@@ -1,0 +1,31 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/hal+json;charset=UTF-8
+Content-Length: 546
+
+{
+  "id" : 1,
+  "name" : "event100",
+  "description" : "test event",
+  "beginEnrollmentDateTime" : null,
+  "closeEnrollmentDateTime" : null,
+  "beginEventDateTime" : null,
+  "endEventDateTime" : null,
+  "location" : null,
+  "basePrice" : 0,
+  "maxPrice" : 0,
+  "limitOfEnrollment" : 0,
+  "offline" : false,
+  "free" : false,
+  "eventStatus" : null,
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/api/events/1"
+    },
+    "profile" : {
+      "href" : "/docs/index.html#resources-events-list"
+    }
+  }
+}
+----

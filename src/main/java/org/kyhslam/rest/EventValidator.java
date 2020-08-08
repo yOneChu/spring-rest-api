@@ -6,6 +6,7 @@ import org.springframework.validation.Errors;
 
 import java.time.LocalDateTime;
 
+//비즈니스 로직 검증
 @Component
 public class EventValidator {
 
