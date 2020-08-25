@@ -15,3 +15,7 @@ Spring REST API 학습 - 블로그에 정리
 ### 6. Bad Request (도메인 Validator를 통한 처리) - [Link](https://kyhslam.tistory.com/entry/Spring-REST-API-6-Bad-Request-2?category=908063) ###
 
 ### 7. Bad Request 에 대한 본문 메세지 - [Link](https://kyhslam.tistory.com/entry/Spring-REST-API-7-Bad-Request-%EC%97%90-%EB%8C%80%ED%95%9C-%EB%B3%B8%EB%AC%B8-%EB%A9%94%EC%84%B8%EC%A7%80) ###
+
+### 8. REST API 비즈니스 로직 적용 및 JunitParam을 이용한 테스트 - [Link](https://kyhslam.tistory.com/entry/Spring-REST-API-8-REST-API-%EB%B9%84%EC%A6%88%EB%8B%88%EC%8A%A4-%EB%A1%9C%EC%A7%81-%EC%A0%81%EC%9A%A9-%EB%B0%8F-JunitParam%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%ED%85%8C%EC%8A%A4%ED%8A%B8?category=908063) ###
+
+### 9. Spring HATEOAS 개념 및 적용 - [Link](https://kyhslam.tistory.com/entry/Spring-REST-API-9-%EC%8A%A4%ED%94%84%EB%A7%81-HATEOAS-%EA%B0%9C%EB%85%90-%EB%B0%8F-%EC%A0%81%EC%9A%A9?category=908063) ###
