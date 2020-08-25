@@ -19,3 +19,5 @@ Spring REST API 학습 - 블로그에 정리
 ### 8. REST API 비즈니스 로직 적용 및 JunitParam을 이용한 테스트 - [Link](https://kyhslam.tistory.com/entry/Spring-REST-API-8-REST-API-%EB%B9%84%EC%A6%88%EB%8B%88%EC%8A%A4-%EB%A1%9C%EC%A7%81-%EC%A0%81%EC%9A%A9-%EB%B0%8F-JunitParam%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%ED%85%8C%EC%8A%A4%ED%8A%B8?category=908063) ###
 
 ### 9. Spring HATEOAS 개념 및 적용 - [Link](https://kyhslam.tistory.com/entry/Spring-REST-API-9-%EC%8A%A4%ED%94%84%EB%A7%81-HATEOAS-%EA%B0%9C%EB%85%90-%EB%B0%8F-%EC%A0%81%EC%9A%A9?category=908063) ###
+
+### 10. Spring REST Docs 개념 및 적용 - [Link](https://kyhslam.tistory.com/entry/Spring-REST-API-10-Spring-REST-Docs-%EA%B0%9C%EB%85%90-%EB%B0%8F-%EC%A0%81%EC%9A%A9?category=908063) ###
